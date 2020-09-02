@@ -528,6 +528,9 @@
     return error;
   }
 
+#if defined(WINAPI_FAMILY) && (WINAPI_FAMILY != WINAPI_FAMILY_DESKTOP_APP)
+#define generic GenericFromFreeTypeLibrary
+#endif
 
   static void
   ft_glyphslot_clear( FT_GlyphSlot  slot )
@@ -1195,6 +1198,9 @@
     FT_FREE( face );
   }
 
+#if defined(WINAPI_FAMILY) && (WINAPI_FAMILY != WINAPI_FAMILY_DESKTOP_APP)
+#undef generic
+#endif
 
   static void
   Destroy_Driver( FT_Driver  driver )

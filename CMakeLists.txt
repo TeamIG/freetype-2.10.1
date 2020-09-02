@@ -342,6 +342,10 @@ else ()
   list(APPEND BASE_SRCS src/base/ftdebug.c)
 endif ()
 
+if(MSVC)
+  add_definitions(-D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_SECURE_NO_WARNINGS)
+endif()
+
 if (BUILD_FRAMEWORK)
   list(APPEND BASE_SRCS builds/mac/freetype-Info.plist)
 endif ()
@@ -373,6 +377,9 @@ if (WIN32)
     target_compile_definitions(
       freetype PRIVATE DLL_EXPORT)
   endif ()
+
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /ZW /EHsc")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /ZW /EHsc")
 endif ()
 
 if (BUILD_SHARED_LIBS)
